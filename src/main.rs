@@ -1,6 +1,6 @@
 use std::fs::File;
 use std::io::Read;
-use std::process::exit;
+
 use clap::Parser;
 use syntect::easy::HighlightLines;
 use syntect::parsing::SyntaxSet;
@@ -43,23 +43,36 @@ fn main() {
     let contents = read_file(cli.file);
 
     if cli.number_blank {
-        let lines = contents.split("\n");
         let mut line_number = 1;
-        for line in lines {
+        for line in LinesWithEndings::from(&contents) {
             if line == "" {
                 println!();
             } else {
                 if cli.syntax_highlight {
                     let ranges: Vec<(Style, &str)> = h.highlight_line(line, &ps).unwrap();
                     let escaped = as_24_bit_terminal_escaped(&ranges[..], true);
-                    println!("{} {}", line_number, escaped);
+                    print!("{} {}", line_number, escaped);
                 } else {
-                    println!("{} {}", line_number, line);
+                    print!("{} {}", line_number, line);
                 }
                 line_number += 1;
             }
         }
     } else {
-        println!("{}", contents);
+        if cli.syntax_highlight {
+            for line in LinesWithEndings::from(&contents) {
+                if line == "" {
+                    continue;
+                }
+
+                let ranges: Vec<(Style, &str)> = h.highlight_line(line, &ps).unwrap();
+                let escaped = as_24_bit_terminal_escaped(&ranges[..], true);
+                print!("{}", escaped);
+
+
+            }
+        } else {
+            print!("{}", contents);
+        }
     }
 }
