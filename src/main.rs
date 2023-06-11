@@ -12,28 +12,28 @@ use file_parser::file_parser::FileParser;
 #[command(author="Nick Keers", name="rscat", about="A simple clone of cat in Rust")]
 struct Cli {
     /// Number the non-blank output lines, starting at 1.
-    #[arg(short='b', verbatim_doc_comment)]
+    #[arg(short='b', long="line-numbers", verbatim_doc_comment)]
     number_blank: bool,
 
     /// Squeeze multiple adjacent empty lines, causing the output to be single spaced.
-    #[arg(short='s', verbatim_doc_comment, default_value_t=false)]
+    #[arg(short='s', long="squeeze", verbatim_doc_comment, default_value_t=false)]
     squeeze: bool,
 
     /// Show non-printing characters, as in the -v option of GNU cat.
-    #[arg(short='v', verbatim_doc_comment)]
+    #[arg(short='v', long="show-non-printing", verbatim_doc_comment)]
     show_non_printing: bool,
 
     /// Syntax highlight the output
-    #[arg(short='S', verbatim_doc_comment)]
+    #[arg(short='S', long="syntax", verbatim_doc_comment)]
     syntax_highlight: bool,
 
     /// Specify the language for syntax-highlighting explicitly
-    #[arg(short='l', verbatim_doc_comment)]
+    #[arg(short='l', long="language", verbatim_doc_comment)]
     language: Option<String>,
 
     /// Specify the theme to use from the 'syntect' crate
     /// Choices: base16-ocean.dark, base16-eighties.dark, base16-mocha.dark, base16-ocean.light
-    #[arg(short='t', verbatim_doc_comment, default_value="base16-ocean.dark")]
+    #[arg(short='t', long="theme", verbatim_doc_comment, default_value="base16-ocean.dark")]
     theme: String,
 
     files: Vec<String>
