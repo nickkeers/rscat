@@ -17,7 +17,7 @@ rscat [OPTIONS] [FILES]...
 ```
 
 ### Arguments
-[FILES]...: Specify one or more files to read. If no files are specified, rscat will read from standard input.
+**[FILES]...**: Specify one or more files to read. If no files are specified, rscat will read from standard input.
 
 ### Options
 * **-b**, **--line-numbers**: Number the non-blank output lines, starting at 1.
