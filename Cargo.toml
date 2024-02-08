@@ -7,5 +7,5 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.3.2", features = ["derive"] }
-syntect = "5.0.0"
+syntect = "5.2.0"
 tempfile = "3.6.0"
